@@ -1,6 +1,3 @@
-# create helper file
-mkdir -p src/utils
-cat > src/utils/api.js <<'EOF'
 /**
  * src/utils/api.js
  * Helper to produce absolute API and upload URLs using VITE_API_BASE
@@ -21,4 +18,3 @@ export function absolutePhotoUrl(photoPath) {
   if (/^https?:\/\//i.test(photoPath)) return photoPath
   return `${API_BASE}${photoPath.startsWith('/') ? '' : '/'}${photoPath}`
 }
-EOF
