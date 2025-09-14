@@ -48,7 +48,7 @@ export default function RecentReports({ limit = 5, inline = false, renderExtra =
       setLoading(true)
       setError(null)
       try {
-        const res = await fetch(`/api/public/reports?limit=${limit}`, { signal })
+const res = await fetch(apiUrl(`/api/public/reports?limit=${limit}`), { signal })
         if (!res.ok) throw new Error(`fetch failed: ${res.status}`)
         const json = await res.json()
         // Accept both array and { data: [...] } shapes
@@ -115,23 +115,19 @@ export default function RecentReports({ limit = 5, inline = false, renderExtra =
       )
     }
     return (
-      <img
-        src={src}
-        alt={r.type ? `${r.type} thumbnail` : 'report thumbnail'}
-        className="object-cover w-full h-full"
-        onError={(e) => {
-          try {
-            // avoid infinite loop if src is bad
-            e.currentTarget.onerror = null
-            e.currentTarget.src = ''
-            e.currentTarget.style.background = '#f3f4f6'
-          } catch (err) {
-            // ignore
-          }
-        }}
-      />
-    )
-  }
+<img
+  src={absolutePhotoUrl(r.photo_url)}
+  alt={r.type ? `${r.type} thumbnail` : 'report thumbnail'}
+  className="object-cover w-full h-full"
+  onError={(e) => {
+    try {
+      e.currentTarget.onerror = null
+      e.currentTarget.src = ''
+      e.currentTarget.style.background = '#f3f4f6'
+    } catch (err) {}
+  }}
+/>
+
 
   const listContent = (
     <>
