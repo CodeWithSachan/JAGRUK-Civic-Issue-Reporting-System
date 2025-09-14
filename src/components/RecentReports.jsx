@@ -100,27 +100,30 @@ export default function RecentReports({ limit = 5, inline = false, renderExtra =
     return () => ac.abort()
   }, [loadReports])
 
-  const renderImage = (r) => {
-    if (!r.photo_url) {
-      return (
-        <div className="w-full h-full flex items-center justify-center text-gray-400 text-xs">
-          No image
-        </div>
-      )
-    }
+const renderImage = (r) => {
+  const src = r.photo_url || r.photo || r.photoUrl || ''
+  if (!src) {
     return (
-      <img
-        src={absolutePhotoUrl(r.photo_url)}
-        alt={r.type ? `${r.type} thumbnail` : 'report thumbnail'}
-        className="object-cover w-full h-full"
-        onError={(e) => {
-          e.currentTarget.onerror = null
-          e.currentTarget.src = ''
-          e.currentTarget.style.background = '#f3f4f6'
-        }}
-      />
+      <div className="w-full h-full flex items-center justify-center text-gray-400 text-xs">
+        No image
+      </div>
     )
   }
+
+  return (
+    <img
+      src={absolutePhotoUrl(src)}
+      alt={r.type ? `${r.type} thumbnail` : 'report thumbnail'}
+      className="object-cover w-full h-full"
+      onError={(e) => {
+        e.currentTarget.onerror = null
+        e.currentTarget.src = ''
+        e.currentTarget.style.background = '#f3f4f6'
+      }}
+    />
+  )
+}
+
 
   const listContent = (
     <>
