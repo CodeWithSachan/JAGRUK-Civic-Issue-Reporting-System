@@ -1,4 +1,5 @@
 // src/pages/AdminDashboard.jsx
+import { absolutePhotoUrl } from '../utils/api'
 import React, { useEffect, useMemo, useState, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -172,24 +173,27 @@ function ReportCard({ r, onChangeStatus, onView, onQuarantine, onRestore, onPurg
 
   return (
     <div className={`bg-white rounded-lg p-4 border flex md:items-start gap-4 ${quarantined ? 'opacity-70' : ''}`}>
-      <div className="w-20 h-20 flex-shrink-0 rounded-md overflow-hidden bg-gray-50 border flex items-center justify-center">
-        {quarantined ? (
-          <div className="text-xs text-orange-600 px-2 text-center">Report quarantined</div>
-        ) : imageSrc && imgVisible ? (
-          <img
-            src={imageSrc}
-            alt={r.type ? `${r.type} thumbnail` : 'report thumbnail'}
-            className="object-cover w-full h-full"
-            onError={(e) => {
-              e.currentTarget.style.display = 'none'
-              setImgVisible(false)
-            }}
-            onLoad={() => setImgVisible(true)}
-          />
-        ) : (
-          <div className="text-xs text-gray-400 px-2 text-center">No image</div>
-        )}
-      </div>
+<div className="w-20 h-20 flex-shrink-0 rounded-md overflow-hidden bg-gray-50 border flex items-center justify-center">
+  {quarantined ? (
+    <div className="text-xs text-orange-600 px-2 text-center">Report quarantined</div>
+  ) : imageSrc && imgVisible ? (
+    <img
+      src={absolutePhotoUrl(imageSrc)}
+      alt={r.type ? `${r.type} thumbnail` : 'report thumbnail'}
+      className="object-cover w-full h-full"
+      onError={(e) => {
+        // hide broken image and mark invisible so we show fallback
+        e.currentTarget.onerror = null
+        e.currentTarget.style.display = 'none'
+        setImgVisible(false)
+      }}
+      onLoad={() => setImgVisible(true)}
+    />
+  ) : (
+    <div className="text-xs text-gray-400 px-2 text-center">No image</div>
+  )}
+</div>
+
 
       <div className="flex-1">
         <div className="flex items-center justify-between gap-4">
