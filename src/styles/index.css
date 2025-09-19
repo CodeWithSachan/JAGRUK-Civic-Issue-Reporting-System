@@ -2,22 +2,142 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Global styles */
-html,
-body,
-#root {
+/* -----------------------------------------------------------
+   Theme variables (easy to tune for branding / Gov. of Jharkhand)
+   ----------------------------------------------------------- */
+:root{
+  --brand-600: #1f6feb;        /* primary blue */
+  --brand-700: #1257c6;
+  --accent: #f59e0b;          /* warm accent (golden) */
+  --muted-700: #6b7280;       /* neutral text */
+  --card-bg: rgba(255,255,255,0.96);
+  --glass-bg: rgba(255,255,255,0.6);
+  --shadow-sm: 0 6px 18px rgba(12, 18, 35, 0.06);
+  --shadow-md: 0 12px 30px rgba(12, 18, 35, 0.08);
+  --radius-lg: 14px;
+}
+
+/* -----------------------------------------------------------
+   Base / reset
+   ----------------------------------------------------------- */
+html, body, #root {
   height: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-body {
-  @apply bg-gray-50;
-  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI',
-    Roboto, 'Helvetica Neue', Arial;
+@layer base {
+  body {
+    @apply bg-gradient-to-b from-white via-gray-50 to-gray-100;
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+      Roboto, "Helvetica Neue", Arial;
+    color: #0f172a;
+    line-height: 1.45;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  a { @apply text-[var(--brand-600)] hover:text-[var(--brand-700)]; }
+  h1,h2,h3,h4 { color: #0b1220; }
+  small { color: var(--muted-700); font-size: .86rem; }
 }
 
-/* ----------------------------------------
-   Leaflet Map Styling
------------------------------------------ */
+/* -----------------------------------------------------------
+   Utility components (cards, hero, badges, buttons)
+   ----------------------------------------------------------- */
+@layer components {
+  /* card used across map, lists, admin */
+  .card {
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid rgba(12,18,35,0.04);
+  }
+
+  .card-strong {
+    box-shadow: var(--shadow-md);
+    border: 1px solid rgba(12,18,35,0.06);
+  }
+
+  /* hero / header badge */
+  .site-hero {
+    background: linear-gradient(180deg, rgba(31,111,235,0.06), rgba(245,158,11,0.02));
+    padding: 48px 18px;
+    border-bottom-left-radius: 18px;
+    border-bottom-right-radius: 18px;
+  }
+
+  /* subtle glass panel often used behind top nav or small overlays */
+  .glass {
+    background: var(--glass-bg);
+    backdrop-filter: saturate(120%) blur(6px);
+  }
+
+  /* primary / secondary buttons */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2 rounded-md font-semibold text-sm;
+  }
+  .btn-primary {
+    background: linear-gradient(180deg, var(--brand-600), var(--brand-700));
+    color: white;
+    box-shadow: 0 8px 24px rgba(31,111,235,0.16);
+  }
+  .btn-primary:hover { transform: translateY(-1px); }
+  .btn-ghost {
+    @apply border border-gray-200 bg-white text-gray-700;
+  }
+
+  /* accent small pill */
+  .pill {
+    display:inline-flex;
+    align-items:center;
+    gap:.4rem;
+    background: rgba(31,111,235,0.06);
+    color: var(--brand-600);
+    padding: .2rem .6rem;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: .78rem;
+    border: 1px solid rgba(31,111,235,0.08);
+  }
+
+  /* status badges (helpful for report status) */
+  .status {
+    display:inline-flex; align-items:center; gap:.5rem;
+    font-weight:700; font-size:.8rem; padding: .28rem .6rem;
+    border-radius: 8px;
+    border: 1px solid rgba(12,18,35,0.04);
+  }
+  .status.submitted { color: #b45309; background: rgba(245,158,11,0.06); border-color: rgba(245,158,11,0.08); }
+  .status.progress { color: #0ea5a3; background: rgba(14,165,163,0.06); border-color: rgba(14,165,163,0.08); }
+  .status.resolved { color: #059669; background: rgba(5,150,105,0.06); border-color: rgba(5,150,105,0.08); }
+  .status.quarantine { color: #ef4444; background: rgba(239,68,68,0.06); border-color: rgba(239,68,68,0.08); }
+}
+
+/* -----------------------------------------------------------
+   Forms + inputs
+   ----------------------------------------------------------- */
+@layer utilities {
+  .form-input {
+    @apply block w-full rounded-md border bg-white px-3 py-2 text-sm text-gray-800;
+    border: 1px solid rgba(12,18,35,0.06);
+    box-shadow: none;
+    transition: box-shadow .15s ease, border-color .12s ease, transform .06s ease;
+  }
+  .form-input:focus {
+    outline: none;
+    box-shadow: 0 6px 20px rgba(31,111,235,0.12);
+    border-color: var(--brand-600);
+    transform: translateY(-1px);
+  }
+
+  .form-textarea { min-height: 120px; @apply form-input resize-y; }
+
+  .form-label { @apply text-sm font-medium text-gray-700; }
+}
+
+/* -----------------------------------------------------------
+   Map / Leaflet specific (kept and harmonized)
+   ----------------------------------------------------------- */
 
 /* Ensure map renders above other content */
 .map-wrapper .leaflet-container {
@@ -26,7 +146,8 @@ body {
   opacity: 1 !important;
   visibility: visible !important;
   border-radius: 12px;
-  box-shadow: 0 6px 30px rgba(2, 6, 23, 0.06);
+  box-shadow: var(--shadow-md);
+  border: 1px solid rgba(12,18,35,0.04);
 }
 
 /* Make sure tiles don’t get hidden */
@@ -40,10 +161,232 @@ body {
   z-index: 9999 !important;
 }
 
-/* ----------------------------------------
-   Debug utilities
-   (use only during dev; remove later)
------------------------------------------ */
-.debug-card {
-  border: 3px dashed red !important;
+/* Leaflet popup adjustments, keep popup content contained */
+.leaflet-popup-content-wrapper {
+  max-width: 340px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(12,18,35,0.08);
+}
+.leaflet-popup-content img {
+  display: block;
+  max-width: 100%;
+  border-radius: 6px;
+  margin-top: 8px;
+}
+
+/* Hide default leaflet zoom control entirely (if you missed zoomControl prop) */
+.leaflet-control-zoom {
+  display: none !important;
+}
+
+/* small map floating controls (your custom ones) - keep them above map & positioned absolutely */
+.map-floating-controls {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 1200;
+}
+.map-control-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  background: linear-gradient(180deg, #ffffff, rgba(255,255,255,0.96));
+  box-shadow: 0 8px 22px rgba(2,6,23,0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* -----------------------------------------------------------
+   Report list / visible reports improvements
+   ----------------------------------------------------------- */
+
+/* container scroll area */
+.visible-reports-scroll {
+  max-height: 380px;
+  overflow-y: auto;
+  padding-right: 6px; /* avoid flush scrollbar */
+  padding-left: 6px;
+}
+
+/* nicer scroll bar (WebKit) */
+.visible-reports-scroll::-webkit-scrollbar {
+  width: 10px;
+}
+.visible-reports-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.visible-reports-scroll::-webkit-scrollbar-thumb {
+  background: rgba(12,18,35,0.08);
+  border-radius: 10px;
+  border: 2px solid rgba(255,255,255,0.85);
+}
+
+/* report card */
+.report-card {
+  display: block;
+  padding: 10px;
+  border-radius: 10px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(250,250,250,0.9));
+  border: 1px solid rgba(12,18,35,0.04);
+  box-shadow: 0 8px 18px rgba(12,18,35,0.04);
+}
+
+/* thumbnail area keeps fixed size */
+.report-card .thumb {
+  background: #f8fafb;
+  border-radius: 8px;
+  overflow: hidden;
+  min-width: 64px; min-height: 64px;
+}
+
+/* ensure the content area can shrink and long text won't overflow parent */
+.report-card .min-w-0 { min-width: 0; }
+
+/* clamp address to 2 lines with ellipsis (modern browsers) */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
+}
+
+/* force status badge shape and spacing */
+.status-badge {
+  border-radius: 8px;
+  padding-left: 8px;
+  padding-right: 8px;
+  font-weight: 700;
+  font-size: .78rem;
+}
+
+/* ensure the Zoom button stays inside the flow */
+.zoom-btn {
+  white-space: nowrap;
+  margin-left: 8px;
+}
+
+/* -----------------------------------------------------------
+   Tiny form / accessibility tweaks
+   ----------------------------------------------------------- */
+:focus {
+  outline: none;
+}
+button:focus, a:focus, input:focus, textarea:focus {
+  box-shadow: 0 8px 30px rgba(31,111,235,0.12);
+  border-color: var(--brand-600);
+}
+
+/* subtle page scrollbars (global) */
+::-webkit-scrollbar {
+  height: 10px;
+  width: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(12,18,35,0.06);
+  border-radius: 10px;
+}
+
+/* debug utilities (remove in production) */
+.debug-card { border: 3px dashed #ef4444 !important; }
+
+/* responsive tweaks (small screens) */
+@media (max-width: 768px) {
+  .map-floating-controls { right: 8px; bottom: 8px; gap: 6px; }
+  .site-hero { padding: 28px 18px; text-align: center; }
+}
+/* ---------- Autocomplete / suggestions fixes (place after Leaflet rules) ---------- */
+
+/* Lower the map container slightly so UI overlays can sit above it.
+   We keep it visible but allow dropdowns to float on top. */
+.leaflet-container {
+  z-index: 8 !important;
+}
+
+/* Wrapper around the autocomplete input — create stacking context.
+   Make sure to wrap your LocationIQAutocomplete in a div.autocomplete-wrapper. */
+.autocomplete-wrapper {
+  position: relative;
+  z-index: 70; /* higher than map (8) and header (z-40) */
+}
+
+/* Target common dropdown classnames used by autocomplete libraries.
+   If your LocationIQAutocomplete supports a custom dropdownClassName, pass
+   something like "autocomplete-dropdown" and this will match it too. */
+.autocomplete-wrapper .autocomplete-suggestions,
+.autocomplete-wrapper .autocomplete-dropdown,
+.autocomplete-wrapper .suggestions,
+.autocomplete-wrapper .react-autosuggest__suggestions-container,
+.autocomplete-wrapper .locationiq-suggestion-list,
+.autocomplete-wrapper .locationiq-results {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  z-index: 80; /* above header & map controls */
+  max-height: 280px;
+  overflow-y: auto;
+  background: var(--card-bg);
+  border-radius: 12px;
+  border: 1px solid rgba(15,23,42,0.06);
+  box-shadow: 0 16px 40px rgba(12,18,35,0.10);
+  padding: 6px 0;
+}
+
+/* suggestion item defaults (some libs use <li>, some <div>) */
+.autocomplete-wrapper .autocomplete-suggestions li,
+.autocomplete-wrapper .autocomplete-dropdown .item,
+.autocomplete-wrapper .suggestions li,
+.autocomplete-wrapper .react-autosuggest__suggestion,
+.autocomplete-wrapper .locationiq-suggestion-item {
+  padding: 10px 14px;
+  cursor: pointer;
+  font-size: 0.96rem;
+  color: #0f172a;
+  line-height: 1.25;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.autocomplete-wrapper .autocomplete-suggestions li:hover,
+.autocomplete-wrapper .autocomplete-dropdown .item:hover,
+.autocomplete-wrapper .react-autosuggest__suggestion--highlighted,
+.autocomplete-wrapper .locationiq-suggestion-item:hover {
+  background: rgba(31,111,235,0.06);
+}
+
+/* if a suggestion contains a small preview map or image, keep it bounded */
+.autocomplete-wrapper .autocomplete-suggestions img,
+.autocomplete-wrapper .autocomplete-dropdown img,
+.autocomplete-wrapper .locationiq-suggestion-item img {
+  max-height: 120px;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* small helper: ensure any popup inside autocomplete doesn’t create huge overflow */
+.autocomplete-wrapper .autocomplete-suggestions .preview-map,
+.autocomplete-wrapper .locationiq-suggestion-item .preview-map {
+  max-height: 140px;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+/* ensure floating controls keep higher stacking when needed */
+.map-floating-controls { z-index: 1200; }
+
+/* If header ever uses a higher z-index, ensure dropdown still floats above it.
+   (your header currently uses z-40; this is just a safeguard) */
+.header, header, .site-header {
+  z-index: 40; /* expected header stacking */
 }

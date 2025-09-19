@@ -1,6 +1,7 @@
 // src/pages/AdminLogin.jsx
 import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { apiUrl } from '../utils/api'
 
 export default function AdminLogin() {
   const navigate = useNavigate()
@@ -10,14 +11,7 @@ export default function AdminLogin() {
   const [error, setError] = useState(null)
   const inputRef = useRef(null)
 
-  // If your backend runs on a different origin during dev, set VITE_API_BASE in .env:
-  // VITE_API_BASE=http://localhost:4000
-  const API_BASE = (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_API_BASE)
-    ? import.meta.env.VITE_API_BASE
-    : ''
-
   useEffect(() => {
-    // autofocus for convenience
     inputRef.current?.focus()
   }, [])
 
@@ -33,14 +27,13 @@ export default function AdminLogin() {
 
     setLoading(true)
     try {
-      const url = `${API_BASE}/api/admin/login`
+      const url = apiUrl('/api/admin/login')
       const res = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ password: trimmed }),
       })
 
-      // Robust parsing: read text then try JSON
       const text = await res.text().catch(() => '')
       let body
       try {
@@ -50,19 +43,16 @@ export default function AdminLogin() {
       }
 
       if (res.ok) {
-        // If backend returned token, save it (dev approach).
-        // Note: for production, prefer httpOnly cookies / secure storage.
+        // store token if server returned one
         if (body && typeof body === 'object' && body.token) {
-          try { localStorage.setItem('admin_token', body.token) } catch (e) { /* ignore storage errors */ }
+          try { localStorage.setItem('admin_token', body.token) } catch (e) { /* ignore */ }
         }
-        // Navigate after successful login
+        // navigate after storing token
         navigate('/admin', { replace: true })
-        // ensure loading cleared (finally will also run, but explicit here for clarity)
-        setLoading(false)
         return
       }
 
-      // Use server message when available
+      // non-OK responses: display sensible message
       if (body && typeof body === 'object' && (body.message || body.error)) {
         setError(body.message || body.error)
       } else if (typeof body === 'string' && body.trim()) {
@@ -73,17 +63,9 @@ export default function AdminLogin() {
         setError(`Login failed (status ${res.status})`)
       }
     } catch (err) {
+      // network / fetch error
+      // eslint-disable-next-line no-console
       console.error('Network / fetch error during admin login:', err)
-
-      // Only allow demo fallback in development builds
-      const isDev = typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.DEV
-      if (isDev && String(password).trim() === 'admin123') {
-        try { localStorage.setItem('admin_token', 'demo-token') } catch (e) {}
-        navigate('/admin', { replace: true })
-        setLoading(false)
-        return
-      }
-
       setError('Network error — unable to contact auth server.')
     } finally {
       setLoading(false)
@@ -102,8 +84,8 @@ export default function AdminLogin() {
           <div className="flex flex-col items-center gap-4 mb-6">
             <div className="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
-                <path d="M12 15a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" fill="#111827" opacity="0.9"></path>
-                <path d="M17 8h-1V6a4 4 0 10-8 0v2H7a1 1 0 00-1 1v10a1 1 0 001 1h10a1 1 0 001-1V9a1 1 0 00-1-1zM9 6a3 3 0 116 0v2H9V6z" fill="#111827" opacity="0.9"></path>
+                <path d="M12 15a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" fill="#111827" opacity="0.9" />
+                <path d="M17 8h-1V6a4 4 0 10-8 0v2H7a1 1 0 00-1 1v10a1 1 0 001 1h10a1 1 0 001-1V9a1 1 0 00-1-1zM9 6a3 3 0 116 0v2H9V6z" fill="#111827" opacity="0.9" />
               </svg>
             </div>
 
@@ -133,18 +115,7 @@ export default function AdminLogin() {
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
                   aria-label={show ? 'Hide password' : 'Show password'}
                 >
-                  {show ? (
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none">
-                      <path d="M3 3l18 18" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
-                      <path d="M10.58 10.58A2 2 0 0013.42 13.42" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
-                      <path d="M9.88 5.13A9 9 0 0112 4.5c4.97 0 9 3.58 9 9a9.09 9.09 0 01-.99 3.92" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  ) : (
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none">
-                      <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-                      <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  )}
+                  {show ? 'Hide' : 'Show'}
                 </button>
               </div>
             </div>
