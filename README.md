@@ -108,12 +108,12 @@ Tailwind + Node + Mongo = fast and efficient.
 
 🌍 Community-Driven Reporting
 Encourages citizens to participate in improving their cities.
-
+```
 📸 Demo
 ```
 🔗 Live Website: https://civicreports.netlify.app/
 ⚙️ Backend API: https://your-backend.onrender.com
-
+```
 🏁 License
 ```
 This project is released under the MIT License.
