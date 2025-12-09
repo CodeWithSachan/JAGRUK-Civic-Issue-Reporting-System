@@ -53,3 +53,68 @@ It enables users to **report civic issues** (like potholes, waste, broken lights
 ```bash
 cd civicreport-backend
 npm install
+
+### 💻 Frontend Setup
+```
+cd src
+npm install
+npm run dev
+
+🌐 Deployment
+```
+Frontend: Hosted on Netlify
+Backend: Hosted on Render
+MongoDB: Hosted on MongoDB Atlas
+Ensure BACKEND_URL in .env points to your Render app URL.
+
+🧩 Folder Structure
+```
+JAGRUK/
+│
+├── civicreport-backend/       # Node + Express server
+│   ├── server.js              # Main backend logic
+│   ├── uploads/               # Uploaded images
+│   ├── reports.json           # Local fallback data
+│
+├── src/                       # React frontend
+│   ├── components/
+│   ├── pages/
+│   ├── context/
+│
+└── README.md
+
+🔒 Security Highlights
+```
+JWT-based admin authentication
+CORS protection for secure frontend-backend communication
+Sanitized file uploads (JPEG, PNG, WEBP, GIF only)
+Automatic quarantine for flagged or duplicate issues
+```
+
+🌟 Unique Selling Points (USP)
+```
+🧠 Smart Quarantine & Duplicate Linking System
+Prevents spam and redundant reports for cleaner admin data.
+
+📡 Real-Time Map Visualization
+Displays live civic issues on an interactive map.
+
+🧾 Transparent Tracking
+Citizens can see every update until resolution.
+
+⚡ Lightweight & Scalable Stack
+Tailwind + Node + Mongo = fast and efficient.
+
+🌍 Community-Driven Reporting
+Encourages citizens to participate in improving their cities.
+
+📸 Demo
+```
+🔗 Live Website: https://civicreports.netlify.app/
+⚙️ Backend API: https://your-backend.onrender.com
+
+🏁 License
+```
+This project is released under the MIT License.
+Feel free to use, modify, and build upon it for community benefit.
+
