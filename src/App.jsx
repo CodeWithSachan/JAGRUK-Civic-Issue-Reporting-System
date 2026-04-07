@@ -60,6 +60,7 @@ import AdminLogin from './pages/AdminLogin'
 
 export default function App() {
   return (
+    <>
     <Shell>
       <Routes>
         {/* Single canonical homepage */}
@@ -88,5 +89,7 @@ export default function App() {
         />
       </Routes>
     </Shell>
+    <AskBot/>
+    </>
   )
 }
