@@ -15,7 +15,8 @@
     "quarantined": false,
     "created_by": null,
     "created_at": "2025-09-14T21:02:27.087Z",
-    "updated_at": "2025-09-14T21:02:27.087Z"
+    "updated_at": "2026-04-06T14:55:45.051Z",
+    "quarantine_reason": "flagged by admin"
   },
   {
     "id": "4",
@@ -30,10 +31,10 @@
     "address": "Jharkhand, India",
     "email": "Shruti@gmail.com",
     "assigned_department_id": null,
-    "quarantined": true,
+    "quarantined": false,
     "created_by": null,
     "created_at": "2025-09-14T13:25:23.698Z",
-    "updated_at": "2025-09-14T13:29:18.066Z",
+    "updated_at": "2026-04-06T14:55:46.819Z",
     "quarantine_reason": "flagged by admin"
   },
   {
@@ -86,10 +87,10 @@
     "address": "Uttarkhand Gramin Bank, Rajpur Road, Dehradun, Dehradun, Uttarakhand, 248001, India",
     "email": "shreya@gmail.com",
     "assigned_department_id": null,
-    "quarantined": true,
+    "quarantined": false,
     "created_by": null,
     "created_at": "2025-09-14T09:25:22.242Z",
-    "updated_at": "2025-09-14T09:26:38.630Z",
+    "updated_at": "2026-04-06T14:55:43.418Z",
     "quarantine_reason": "flagged by admin"
   }
 ]
