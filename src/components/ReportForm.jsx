@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react'
 import LocationIQAutocomplete from './LocationIQAutocomplete'
 import { useLanguage } from '../context/LanguageContext'
-
+// import { useEffect } from 'react'
 // react-leaflet (ensure react-leaflet & leaflet are installed)
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents, useMap } from 'react-leaflet'
 import L from 'leaflet'
@@ -188,6 +188,19 @@ export default function ReportForm({ onAddReport }) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+    useEffect(() => {
+  const draft = JSON.parse(localStorage.getItem('reportDraft'))
+
+  if (draft) {
+    setFormData(prev => ({
+      ...prev,
+      issueType: draft.issueType || '',
+      description: draft.description || '',
+      location: draft.location || '',
+      priority: draft.urgency || 'normal'
+    }))
+  }
+}, [])
 
   const setField = (k, v) => {
     setFormData((s) => ({ ...s, [k]: v }))
@@ -533,6 +546,7 @@ export default function ReportForm({ onAddReport }) {
     } finally {
       setSubmitting(false)
     }
+    localStorage.removeItem('reportDraft')
   }
 
   /* ---------------- Render ---------------- */

@@ -48,6 +48,7 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Shell from './layouts/Shell'
+import AskBot from './components/AskBot'
 
 // Pages
 import Home from './pages/Home'
@@ -59,6 +60,7 @@ import AdminLogin from './pages/AdminLogin'
 
 export default function App() {
   return (
+    <>
     <Shell>
       <Routes>
         {/* Single canonical homepage */}
@@ -87,5 +89,7 @@ export default function App() {
         />
       </Routes>
     </Shell>
+    <AskBot/>
+    </>
   )
 }
