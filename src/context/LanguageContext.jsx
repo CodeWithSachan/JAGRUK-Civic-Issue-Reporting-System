@@ -8,7 +8,7 @@ const LanguageContext = createContext(null)
 const DICT = {
   en: {
     civicReport: 'CivicReport',
-    officialJharkhand: 'Official • Govt. of Jharkhand',
+    officialIndia: 'Official • Govt. of India',
     reportIssue: 'Report Issue',
     mapView: 'Map View',
     adminPortal: 'Admin Portal',
@@ -25,7 +25,7 @@ const DICT = {
   },
   hi: {
     civicReport: 'सिविकरिपोर्ट',
-    officialJharkhand: 'आधिकारिक • झारखंड सरकार',
+    officialIndia: 'आधिकारिक • भारत सरकार',
     reportIssue: 'समस्या रिपोर्ट करें',
     mapView: 'मानचित्र दृश्य',
     adminPortal: 'प्रशासन पोर्टल',

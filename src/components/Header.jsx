@@ -89,14 +89,14 @@ export default function Header({ onRefresh, onLanguageChange } = {}) {
                 <div className="flex items-center justify-center rounded bg-white p-1 shadow-sm">
                   <img
                     src={logoSrc}
-                    alt={t?.('officialJharkhand') || 'CivicReport logo'}
+                    alt={t?.('officialIndia') || 'CivicReport logo'}
                     onError={(e) => { e.currentTarget.style.display = 'none' }}
                     className="h-10 w-10 object-contain"
                   />
                 </div>
                 <div className="leading-tight">
                   <div className="text-base font-bold text-[#0b1220]">JAGRUK</div>
-                  <div className="text-xs text-gray-500 hidden sm:block">Official • Govt. of Jharkhand</div>
+                  <div className="text-xs text-gray-500 hidden sm:block">Official • Govt. of India</div>
                 </div>
               </div>
             </div>

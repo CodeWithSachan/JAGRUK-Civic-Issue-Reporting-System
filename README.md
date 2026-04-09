@@ -5,7 +5,7 @@
 ---
 
 ## 🚀 Overview
-**JAGRUK** (Jharkhand App for Grievance Reporting and User Knowledge) is a full-stack web platform designed to bridge the communication gap between **citizens and local authorities**.  
+**JAGRUK** (Janta App for Grievance Reporting and User Knowledge) is a full-stack web platform designed to bridge the communication gap between **citizens and local authorities**.  
 It enables users to **report civic issues** (like potholes, waste, broken lights, etc.), track their progress in real-time, and promote **community-driven governance**.
 
 ---

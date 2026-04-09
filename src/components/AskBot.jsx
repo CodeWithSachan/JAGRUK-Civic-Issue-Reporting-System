@@ -138,7 +138,7 @@ import AutoFillToast from './AutoFillToast'
   { tags:['पंजीकरण','account','login hindi','register','signup','khaata'], q:'क्या JAGRUK पर account बनाना जरूरी है?', a:'🙌 नहीं! शिकायत दर्ज करने के लिए **कोई account or login जरूरी नहीं**। बस फॉर्म भरें और Submit करें। केवल सरकारी अधिकारियों को login करना पड़ता है।' },
   { tags:['भाषा','hindi english','bhasha badlo','language change','hindi mein kaise'], q:'भाषा कैसे बदलें?', a:'🗣️ Header में ऊपर **EN/HI** टॉगल बटन है। उसे दबाएं और भाषा हिंदी या अंग्रेजी में बदल जाएगी।' },
 
-  // ── JHARKHAND SPECIFIC ───────────────────────────────────────
+  // ── JANTA SPECIFIC ───────────────────────────────────────
   { tags:['ranchi','capital','ranchi city','ranchi area','ranchi report'], q:'I am in Ranchi, can I report?', a:'✅ Absolutely! JAGRUK covers all of **India including Ranchi**. Submit with your Ranchi address and pin the exact location.' },
   { tags:['jamshedpur','tatanagar','tata','steel city','jamshedpur report'], q:'Does JAGRUK work in Jamshedpur?', a:'✅ Yes! JAGRUK is available for citizens across all of India including **Jamshedpur (Tatanagar)**.' },
   { tags:['dhanbad','bokaro','hazaribagh','deoghar','giridih','dumka','district','lohardaga','garhwa','palamu'], q:'Does JAGRUK work in my district?', a:'✅ JAGRUK serves **all districts of India** — Dhanbad, Bokaro, Hazaribagh, Deoghar, Giridih, Dumka, Lohardaga, Garhwa, Palamu, and all others.' },

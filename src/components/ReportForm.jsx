@@ -17,7 +17,7 @@ const MAX_IMAGE_BYTES = 5 * 1024 * 1024 // 5 MB per image
 // Reverse geocoding toggle (set to false to disable)
 const ENABLE_REVERSE_GEOCODING = true
 
-// Default map center (Jharkhand-ish)
+// Default map center (Janta-ish)
 const DEFAULT_CENTER = [23.6102, 85.2799]
 const DEFAULT_ZOOM = 12
 

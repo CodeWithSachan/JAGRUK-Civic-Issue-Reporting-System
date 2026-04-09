@@ -557,7 +557,7 @@ export default function AdminDashboard() {
         <div>
           <div className="flex items-center gap-3">
             <h1 className="text-3xl md:text-4xl font-extrabold">{t('administrativeDashboard', 'Administrative Dashboard')}</h1>
-            <div className="text-sm px-3 py-1 rounded-full bg-blue-50 text-blue-700 font-medium">{t('officialJharkhand', 'Official • Govt of Jharkhand')}</div>
+            <div className="text-sm px-3 py-1 rounded-full bg-blue-50 text-blue-700 font-medium">{t('officialIndia', 'Official • Govt of India')}</div>
           </div>
           <p className="text-gray-500 mt-2">{t('manageModerate', 'Manage and moderate reported issues')}</p>
         </div>

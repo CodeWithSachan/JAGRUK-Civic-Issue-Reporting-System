@@ -136,7 +136,7 @@ export default function Home() {
     JAGRUK
   </h1>
   <p className="text-lg md:text-xl text-gray-800 mt-2">
-    Jharkhand App for Grievance Reporting &amp; User Knowledge
+    Janta App for Grievance Reporting &amp; User Knowledge
   </p>
   <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
     CivicReport connects citizens with local government to identify, track, and

@@ -596,7 +596,7 @@ export default function MapView() {
               </div>
             </div>
 
-            <div className="mt-6 text-xs text-gray-500">CivicReport • Official initiative — Govt. of Jharkhand</div>
+            <div className="mt-6 text-xs text-gray-500">CivicReport • Official initiative — Govt. of India</div>
           </div>
 
           {/* RIGHT: sidebar (desktop) */}
